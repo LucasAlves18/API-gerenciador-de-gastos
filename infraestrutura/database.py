@@ -1,5 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base
+from sqlalchemy.orm import sessionmaker
 
 Base = declarative_base()
 from infraestrutura.models import user_map
@@ -10,4 +11,11 @@ engine = create_engine("sqlite:///banco.db")
 engine.connect()
 Base.metadata.create_all(engine)
 
-print(engine)
+SessionLocal = sessionmaker(bind=engine)
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
