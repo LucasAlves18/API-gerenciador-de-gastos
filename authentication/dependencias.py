@@ -1,12 +1,12 @@
 from fastapi import Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from authentication.jwt import verify_token
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/authentication/login")
+security = HTTPBearer()
 
-def get_current_user(token: str = Depends(oauth2_scheme)):
+def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security)):
     try:
-        payload = verify_token(token)
+        payload = verify_token(credentials.credentials)
         return payload
     except Exception:
         raise HTTPException(
