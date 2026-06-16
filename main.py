@@ -2,6 +2,8 @@ import uvicorn
 from fastapi import FastAPI
 from routes.user_endpoints import router as router_user
 from routes.auth_endpoints import router as router_auth
+from routes.expense_type_endpoints import router as router_expense_type
+from routes.payment_type_endpoints import router as router_payment_type
 from infrastructure import database
 from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
@@ -14,9 +16,10 @@ app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 app = FastAPI()
 
-app.include_router(router_user)
 app.include_router(router_auth)
-
+app.include_router(router_user)
+app.include_router(router_expense_type)
+app.include_router(router_payment_type)
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=9065, reload=True)
