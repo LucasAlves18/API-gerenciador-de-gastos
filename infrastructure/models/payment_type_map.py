@@ -7,4 +7,3 @@ class PaymentTypeMap(Base):
 
     id = Column(Integer, primary_key=True)
     description = Column(String, nullable=False)
-
