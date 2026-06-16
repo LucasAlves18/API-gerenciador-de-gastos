@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from repository.user_repository import UserRepository
 from schemas.user_schema import UserCreate, UserSearchResponse
-from services.auth_service import pwd_context
+from services.auth_services import pwd_context
 
 
 class UserServices:

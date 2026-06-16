@@ -8,6 +8,9 @@ class UserRepository:
     def get_by_email(self, email: str) -> type[UserMap] | None:
         return self.db.query(UserMap).filter(UserMap.email == email).first()
 
+    def get_by_id(self, id_acount: int):
+        return self.db.query(UserMap).filter(UserMap.id == id_acount).first()
+
     def create_user(self, name: str, email: str, password: str, balance: float):
         instance = UserMap()
         instance.name = name
